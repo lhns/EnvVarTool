@@ -20,7 +20,9 @@ repositories {
 
 dependencies {
     compile([group: 'org.scala-lang', name: 'scala-library', version: config.version_scala],
-            [group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: config.version_akka])
+            [group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: config.version_akka],
+            [group: 'net.java.dev.jna', name: 'jna', version: config.version_jna],
+            [group: 'net.java.dev.jna', name: 'jna-platform', version: config.version_jna])
 }
 
 task testJar(type: Jar, dependsOn: javadoc) {

@@ -1,10 +1,15 @@
 package org.lolhens.envvartool;
 
-import at.jta.Key;
-import at.jta.RegistryErrorException;
-import at.jta.Regor;
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.WinNT;
+import com.sun.jna.platform.win32.WinReg;
 
 import javax.swing.*;
+
+import java.rmi.*;
+import java.rmi.registry.Registry;
+
+import static com.sun.jna.platform.win32.WinReg.HKEY_LOCAL_MACHINE;
 
 /**
  * Created by LolHens on 09.12.2014.
@@ -40,15 +45,16 @@ public class EnvVarEditor extends JFrame {
 
         setEditEnabled(false);
 
+        WinReg.HKEYByReference ref = Advapi32Util.registryGetKey(HKEY_LOCAL_MACHINE, Main.envVarPath(), WinNT.KEY_READ);
+        System.out.println(ref);
+        System.out.println(ref.getValue());
+        System.out.println(ref.nativeType());
+        System.out.println(ref.getValue().nativeType());
+        System.out.println(Advapi32Util.registryGetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar));
+        System.out.println(Advapi32Util.registry(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar));
         System.out.println(envVar);
         String value = WindowsRegistry.readValue(Main.envVarPath(), envVar);
-        WindowsRegistry2.testKey(WindowsRegistry2.HKEY_LOCAL_MACHINE, "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment", "Path");
         System.out.println(value);
-        try {
-            System.out.println(Main.regor().readAnyValueString(new Key(Regor._HKEY_LOCAL_MACHINE, "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment"), "Path"));
-        } catch (RegistryErrorException e) {
-            e.printStackTrace();
-        }
         //if (value != null && !value.equals("")) for (String part : value.split(";")) lstModelEntries.addElement(part);
 
         pack();
