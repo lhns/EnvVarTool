@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+file('build.properties').withReader {
+    def prop = new Properties()
+    prop.load it
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+version = config.version
+group = 'org.lolhens'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile([group: 'org.scala-lang', name: 'scala-library', version: config.version_scala],
+            [group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: config.version_akka])
+}
+
+task testJar(type: Jar, dependsOn: javadoc) {
+    from sourceSets.main.output
+    from sourceSets.test.output
+    classifier = 'test'
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from 'build/docs/javadoc'
+    classifier = 'javadoc'
+}
+
+build.dependsOn testJar, sourceJar, javadocJar
