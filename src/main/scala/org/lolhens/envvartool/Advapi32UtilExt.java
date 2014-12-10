@@ -127,4 +127,29 @@ public class Advapi32UtilExt {
             throw new Win32Exception(rc);
         }
     }
+
+    public static Object registryGetValue(WinReg.HKEY root, String key, String value) {
+        WinReg.HKEYByReference phkKey = new WinReg.HKEYByReference();
+        int rc = Advapi32.INSTANCE.RegOpenKeyEx(root, key, 0, WinNT.KEY_READ,
+                phkKey);
+        if (rc != W32Errors.ERROR_SUCCESS) {
+            throw new Win32Exception(rc);
+        }
+        try {
+            return registryGetValue(phkKey.getValue(), value);
+        } finally {
+            rc = Advapi32.INSTANCE.RegCloseKey(phkKey.getValue());
+            if (rc != W32Errors.ERROR_SUCCESS) {
+                throw new Win32Exception(rc);
+            }
+        }
+    }
+
+    public static Object registryGetValue(WinReg.HKEY root, String value) {
+        if (registryGetValueType(root, value) == WinNT.REG_EXPAND_SZ) {
+            return Advapi32Util.registryGetExpandableStringValue(root, value);
+        } else {
+            return Advapi32Util.registryGetValue(root, "", value);
+        }
+    }
 }

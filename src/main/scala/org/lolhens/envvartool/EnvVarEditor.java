@@ -1,6 +1,5 @@
 package org.lolhens.envvartool;
 
-import com.sun.jna.platform.win32.Advapi32Util;
 import com.sun.jna.platform.win32.WinNT;
 
 import javax.swing.*;
@@ -135,7 +134,7 @@ public class EnvVarEditor extends JFrame {
         lstModelEntries.clear();
         envVarType = Advapi32UtilExt.registryGetValueType(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar);
         if (envVarType == WinNT.REG_EXPAND_SZ || envVarType == WinNT.REG_SZ) {
-            String value = (String) Advapi32Util.registryGetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar);
+            String value = (String) Advapi32UtilExt.registryGetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar);
             if (value != null) {
                 for (String part : value.split(";")) if (!part.equals("")) lstModelEntries.addElement(part);
                 setState(true, btnSave);
@@ -149,8 +148,7 @@ public class EnvVarEditor extends JFrame {
             string.append(lstModelEntries.get(i));
             if (i + 1 < lstModelEntries.getSize()) string.append(";");
         }
-        System.out.println(string.toString());
-        //Advapi32UtilExt.registrySetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), "testVar", string.toString(), envVarType);
+        Advapi32UtilExt.registrySetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar, string.toString(), envVarType);
     }
 
     private void setState(boolean value, JComponent... components) {
