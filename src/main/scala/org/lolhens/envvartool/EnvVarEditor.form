@@ -10,7 +10,7 @@
       <grid id="46ba5" binding="panelFile" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="South"/>
         <properties/>
-        <border type="none"/>
+        <border type="bevel-raised"/>
         <children>
           <component id="b01e9" class="javax.swing.JButton" binding="btnSave">
             <constraints border-constraint="Center"/>
@@ -21,7 +21,7 @@
             </properties>
           </component>
           <grid id="2b48b" binding="panelReject" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+            <margin top="0" left="10" bottom="0" right="0"/>
             <constraints border-constraint="East"/>
             <properties/>
             <border type="none"/>
@@ -64,26 +64,50 @@
             </properties>
             <border type="etched"/>
             <children>
-              <component id="8514c" class="javax.swing.JButton" binding="btnValue">
+              <grid id="c168a" binding="panelValueFile" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties>
-                  <enabled value="true"/>
-                  <icon value="ok.png"/>
-                  <text value=""/>
-                </properties>
-              </component>
-              <component id="b0ebb" class="javax.swing.JTextArea" binding="txtValue">
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="8514c" class="javax.swing.JButton" binding="btnValueOk">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <icon value="ok.png"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <component id="8325f" class="javax.swing.JButton" binding="btnValueCancel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <icon value="delete.png"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <scrollpane id="af678">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="32"/>
-                  </grid>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties>
-                  <enabled value="true"/>
-                </properties>
-              </component>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="b0ebb" class="javax.swing.JTextArea" binding="txtValue">
+                    <constraints/>
+                    <properties>
+                      <enabled value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
           <component id="500f8" class="javax.swing.JButton" binding="btnAdd">

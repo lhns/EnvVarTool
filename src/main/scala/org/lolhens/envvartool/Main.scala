@@ -9,6 +9,6 @@ object Main {
   val envVarPath = "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment"
 
   def main(args: Array[String]): Unit = {
-    val window = new EnvVarEditor("Path")
+    val window = new EnvVarEditor("windir")
   }
 }
