@@ -166,7 +166,9 @@
             <children>
               <component id="5fa99" class="javax.swing.JList" binding="lstEntries">
                 <constraints/>
-                <properties/>
+                <properties>
+                  <enabled value="true"/>
+                </properties>
               </component>
             </children>
           </scrollpane>

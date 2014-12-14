@@ -4,6 +4,7 @@ file('build.properties').withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
@@ -11,6 +12,7 @@ apply plugin: 'maven'
 
 version = config.version
 group = config.group
+mainClassName = 'org.lolhens.envvartool.Main'
 
 repositories {
     mavenLocal()
@@ -18,10 +20,17 @@ repositories {
 }
 
 dependencies {
-    compile([group: 'org.scala-lang', name: 'scala-library', version: config.version_scala],
+    compile([group: 'com.intellij', name: 'forms_rt', version: config.version_forms_rt],
+            [group: 'org.scala-lang', name: 'scala-library', version: config.version_scala],
             [group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: config.version_akka],
             [group: 'net.java.dev.jna', name: 'jna', version: config.version_jna],
             [group: 'net.java.dev.jna', name: 'jna-platform', version: config.version_jna])
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": mainClassName
+    }
 }
 
 task testJar(type: Jar, dependsOn: javadoc) {
