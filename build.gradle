@@ -1,17 +1,16 @@
-apply plugin: 'java'
-apply plugin: 'scala'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'maven'
-
 file('build.properties').withReader {
     def prop = new Properties()
     prop.load it
     project.ext.config = new ConfigSlurper().parse prop
 }
 
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
 version = config.version
-group = 'org.lolhens'
+group = config.group
 
 repositories {
     mavenLocal()

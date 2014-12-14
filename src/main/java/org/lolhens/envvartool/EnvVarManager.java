@@ -6,7 +6,6 @@ import com.sun.jna.platform.win32.WinNT;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +30,7 @@ public class EnvVarManager extends JFrame {
     private Map<JComponent, Integer> componentState = new HashMap<>();
 
     public EnvVarManager() {
-        super(("EnvVarTool v" + Main.version() + " - Environment Variable Manager"));
+        super(("EnvVarTool v" + Main.version + " - Environment Variable Manager"));
 
         setContentPane(contentPane);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +56,7 @@ public class EnvVarManager extends JFrame {
             if (index > -1) {
                 lstEnvVars.setSelectedIndex(-1);
                 String value = lstModelEnvVars.get(index);
-                Advapi32Util.registryDeleteValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), value);
+                Advapi32Util.registryDeleteValue(HKEY_LOCAL_MACHINE, Main.envVarPath, value);
 
                 lstModelEnvVars.remove(index);
             }
@@ -73,7 +72,7 @@ public class EnvVarManager extends JFrame {
             String value = txtValue.getText();
             boolean exp = ckValueExp.isSelected();
 
-            Advapi32UtilExt.registrySetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), value, "", exp ? WinNT.REG_EXPAND_SZ : WinNT.REG_SZ);
+            Advapi32UtilExt.registrySetValue(HKEY_LOCAL_MACHINE, Main.envVarPath, value, "", exp ? WinNT.REG_EXPAND_SZ : WinNT.REG_SZ);
 
             int index = lstModelEnvVars.size();
             lstModelEnvVars.add(index, value);
@@ -108,7 +107,7 @@ public class EnvVarManager extends JFrame {
 
     private void reload() {
         lstModelEnvVars.clear();
-        for (String key : Advapi32Util.registryGetValues(HKEY_LOCAL_MACHINE, Main.envVarPath()).keySet()) {
+        for (String key : Advapi32Util.registryGetValues(HKEY_LOCAL_MACHINE, Main.envVarPath).keySet()) {
             lstModelEnvVars.addElement(key);
         }
     }

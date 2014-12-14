@@ -39,7 +39,7 @@ public class EnvVarEditor extends JFrame {
     private String editing = null;
 
     public EnvVarEditor(String envVar) {
-        super(("EnvVarTool v" + Main.version() + " - Environment Variable Editor"));
+        super(("EnvVarTool v" + Main.version + " - Environment Variable Editor"));
 
         this.envVar = envVar;
 
@@ -135,9 +135,9 @@ public class EnvVarEditor extends JFrame {
     private void reload() {
         setState(false, btnSave);
         lstModelEntries.clear();
-        envVarType = Advapi32UtilExt.registryGetValueType(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar);
+        envVarType = Advapi32UtilExt.registryGetValueType(HKEY_LOCAL_MACHINE, Main.envVarPath, envVar);
         if (envVarType == WinNT.REG_EXPAND_SZ || envVarType == WinNT.REG_SZ) {
-            String value = (String) Advapi32UtilExt.registryGetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar);
+            String value = (String) Advapi32UtilExt.registryGetValue(HKEY_LOCAL_MACHINE, Main.envVarPath, envVar);
             if (value != null) {
                 for (String part : value.split(";")) if (!part.equals("")) lstModelEntries.addElement(part);
                 setState(true, btnSave);
@@ -151,7 +151,7 @@ public class EnvVarEditor extends JFrame {
             string.append(lstModelEntries.get(i));
             if (i + 1 < lstModelEntries.getSize()) string.append(";");
         }
-        Advapi32UtilExt.registrySetValue(HKEY_LOCAL_MACHINE, Main.envVarPath(), envVar, string.toString(), envVarType);
+        Advapi32UtilExt.registrySetValue(HKEY_LOCAL_MACHINE, Main.envVarPath, envVar, string.toString(), envVarType);
     }
 
     private void setState(boolean value, JComponent... components) {
