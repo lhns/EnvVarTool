@@ -4,7 +4,6 @@ file('build.properties').withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
@@ -12,7 +11,6 @@ apply plugin: 'maven'
 
 version = config.version
 group = config.group
-mainClassName = 'org.lolhens.envvartool.Main'
 
 repositories {
     mavenLocal()
@@ -29,7 +27,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": mainClassName
+        if (!config.mainClass.isEmpty()) attributes "Main-Class": config.mainClass
     }
 }
 
