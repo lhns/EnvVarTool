@@ -44,7 +44,7 @@ public class EnvVarEditor extends JFrame {
         this.envVar = envVar;
 
         setContentPane(contentPane);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         lstEntries.setModel(lstModelEntries);
 
@@ -54,10 +54,13 @@ public class EnvVarEditor extends JFrame {
 
         lstEntries.addListSelectionListener((e) -> {
             int index = lstEntries.getSelectedIndex();
-            setState(index > -1 && lstModelEntries.get(index) != null, btnEdit, btnDelete);
+            if (!txtValue.isEnabled()) setState(index > -1 && lstModelEntries.get(index) != null, btnEdit, btnDelete);
         });
 
-        btnSave.addActionListener((e) -> save());
+        btnSave.addActionListener((e) -> {
+            save();
+            dispose();
+        });
         btnReload.addActionListener((e) -> reload());
         btnCancel.addActionListener((e) -> dispose());
 
