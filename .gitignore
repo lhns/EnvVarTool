@@ -19,6 +19,7 @@ projectFilesBackup/
 #Gradle
 .gradle/
 build/
+gradle-app.setting
 
 #Git
 .cache
